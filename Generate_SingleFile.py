@@ -7,6 +7,38 @@ Created on Tue Sep  7 12:00:38 2021
 This should generate audio for Sander's experiment
 Only one repeat, and at given BPM.
 
+5- 'LR3 MH2'
+
+7- 'LR3 HH3'
+
+24- 'LR7 MH4'
+
+26- 'LR7 HH5'
+
+33- 'Son Clave MR1 MH4'
+
+35- 'Son Clave MR1 HH5'
+
+50- 'Mariato Clave MR5 MH2'
+
+52- 'Mariato Clave MR5 HH3'
+
+59- 'HR1 MH2'
+
+61- 'HR1 HH3'
+
+69- 'HR3 MH4'
+
+71- 'HR3 HH5'
+
+95- 'METRONOME 2 MH'
+
+94- 'METRONOME 1 MH'
+
+98- 'METRONOME 2 HH'
+
+97- 'METRONOME 1 HH'
+
 
 Requirements:
 Python 3.8
@@ -68,7 +100,7 @@ def change_tempo(mid, tempo):
 
 def write_wav(midiName, name):
 	#REPLACE THIS WITH YOUR OWN FLUIDSYNTH
-	fluidsynth = 'C:/Users/olehe/Documents/GitHub/VPD_generator/fluidsynth-2.2.2/bin/fluidsynth.exe'
+	fluidsynth = 'C:/Users/olehe/Documents/GitHub/SanderGenerator/fluidsynth-2.2.2/bin/fluidsynth.exe'
 	result = subprocess.run([fluidsynth, "-i", "-q", "default.sf2", midiName, "-T", "wav", "-F", name], shell=True)
 	# This doesn't always play nice, but it's solved by simply letting it sleep a bit.
 	# I've not tested without the sleep, so it could possible work without it.
@@ -96,46 +128,31 @@ if thisTempo > 240 or thisTempo < 60:
 print('Generating stimuli for participant', thisParticipant, 'at a BPM of', str(thisTempo))
 
 
-# total length of experiment, could be used as a ceiling measure.
-totalLength = 20*60
-
-# one block means on block of listening to a stimuli
-blockLength = 30
-
-# how many times to repeat blocks (not sequentially, but throughout the experiment)
-# currently not used
-#blockRepeats = 2
-
-# Calculate number of repeats per block
-# one repeat is TWO bars
-
-barTime = (60/thisTempo)*4
-repeatTime = barTime * 2
-
-#note: this aims at 60 seconds long blocks.
-
-# number of times to repeat a stimuli within a block
-blockReps = math.floor(blockLength/barTime)
-
 
 # levels of our stimuli, in order.
-listLevels = ['IL', 'IM', 'IH',
-			  'LL', 'LM', 'LH',
-			  'ML', 'MM', 'MH',
-			  'HL', 'HM', 'HH']
-
-# randomize order for experiment 1
-randomizedOrder = random.sample(listLevels, len(listLevels))
+listLevels = ['HR1HH3',
+			'HR1MH2',
+			'HR3HH5',
+			'HR3MH4',
+			'LR3HH3',
+			'LR3MH2',
+			'LR7HH3',
+			'LR7MH4',
+			'MariatoClaveMR5HH3',
+			'MariatoClaveMR5MH2',
+			'SonClaveMR1HH5',
+			'SonClaveMR1MH4',
+			'Metro1MH',
+			'Metro1HH',
+			'Metro2MH',
+			'Metro2HH']
 
 # create participant folder
 
-if not os.path.isdir('participants'):
-	os.mkdir('participants')
+if not os.path.isdir('stims'):
+	os.mkdir('stims')
 
-thisPartFolder = 'participants/' + thisParticipant
 
-if not os.path.isdir(thisPartFolder):
-	os.mkdir(thisPartFolder)
 
 #%% Cleaning
 
@@ -155,26 +172,42 @@ for f in scratchMidiFiles:
 	
 
 #%% Read midi, make wav
-
+# there should be 16 files.
 
 # Hardcoded stimuli MIDI
-IL = mido.MidiFile('stimMIDI/01a_CL.mid')
-IM = mido.MidiFile('stimMIDI/01b_CM.mid')
-IH = mido.MidiFile('stimMIDI/01c_CH.mid')
-LL = mido.MidiFile('stimMIDI/02_LL-LR3LH2.mid')
-LM = mido.MidiFile('stimMIDI/05_LM-LR3MH2.mid')
-LH = mido.MidiFile('stimMIDI/08_LH-LR3HH5.mid')
-ML = mido.MidiFile('stimMIDI/29_ML-MR1LH3.mid')
-MM = mido.MidiFile('stimMIDI/32_MM-MR1MH2.mid')
-MH = mido.MidiFile('stimMIDI/35_MH-MR1HH5.mid')
-HL = mido.MidiFile('stimMIDI/56_HL-HR1LH3.mid')
-HM = mido.MidiFile('stimMIDI/59_HM-HR1MH2.mid')
-HH = mido.MidiFile('stimMIDI/62_HH-HR1HH5.mid')
+HR1HH3 = mido.MidiFile('stimMidi/HR1HH3.mid')
+HR1MH2 = mido.MidiFile('stimMidi/HR1MH2.mid')
+HR3HH5 = mido.MidiFile('stimMidi/HR3HH5.mid')
+HR3MH4 = mido.MidiFile('stimMidi/HR3MH4.mid')
+LR3HH3 = mido.MidiFile('stimMidi/LR3HH3.mid')
+LR3MH2 = mido.MidiFile('stimMidi/LR3MH2.mid')
+LR7HH3 = mido.MidiFile('stimMidi/LR7HH3.mid')
+LR7MH4 = mido.MidiFile('stimMidi/LR7MH4.mid')
+MariatoClaveMR5HH3 = mido.MidiFile('stimMidi/MariatoClaveMR5HH3.mid')
+MariatoClaveMR5MH2 = mido.MidiFile('stimMidi/MariatoClaveMR5MH2.mid')
+SonClaveMR1HH5 = mido.MidiFile('stimMidi/SonClaveMR1HH5.mid')
+SonClaveMR1MH4 = mido.MidiFile('stimMidi/SonClaveMR1MH4.mid')
+Metro1MH = mido.MidiFile('stimMidi/Metro1MH.mid')
+Metro1HH = mido.MidiFile('stimMidi/Metro1HH.mid')
+Metro2MH = mido.MidiFile('stimMidi/Metro2MH.mid')
+Metro2HH = mido.MidiFile('stimMidi/Metro2HH.mid')
 
-allMidi = [IL, IM, IH,
-		   LL, LM, LH,
-		   ML, MM, MH,
-		   HL, HM, HH]
+allMidi = [HR1HH3,
+			HR1MH2,
+			HR3HH5,
+			HR3MH4,
+			LR3HH3,
+			LR3MH2,
+			LR7HH3,
+			LR7MH4,
+			MariatoClaveMR5HH3,
+			MariatoClaveMR5MH2,
+			SonClaveMR1HH5,
+			SonClaveMR1MH4,
+			Metro1MH,
+			Metro1HH,
+			Metro2MH,
+			Metro2HH]
 
 # run through, change tempo, make .wav-file
 
@@ -182,7 +215,6 @@ for n, thisStim in enumerate(allMidi):
 	tempoChanged = change_tempo(thisStim, thisTempo)
 	saveNameMidi = 'scratchMIDI/' + listLevels[n] + '.mid'
 	tempoChanged.save(saveNameMidi)
-	#time.sleep(1)
 	saveNameWav = 'scratchWAV/' + listLevels[n] + '.wav'
 	write_wav(saveNameMidi, saveNameWav)
 	
@@ -229,55 +261,6 @@ totalLengthExp1 = (outputWav.shape[0]/fs)
 minutes = math.floor(totalLengthExp1/60)
 seconds = math.floor(totalLengthExp1 % 60)
 print('Length of experiment 1:', minutes, 'm', seconds, 's')
-
-# write log
-logDict = {'Condition': condArray, 'Time': timeArray}
-logDF = pd.DataFrame(data=logDict)
-logDF.to_csv(participantLogName)
-
-
-#%% Generate audio for experiment 2
-
-# note, we're here using the original order
-strictlyOrdered = listLevels
-	
-fs, silence = wavfile.read('staticWAV/silence10s.wav')
-length = silence.shape[0]/fs
-
-
-# calculate length of repeat in samples
-samplesRepeat = math.floor(repeatTime * fs)
-
-# now stich together according to randomized order.
-# also make a .txt-file with information
-condArray = ['silence']
-timeArray = [0]
-
-outputWav = silence
-for n, condition in enumerate(strictlyOrdered):
-	condArray.append(condition)
-	currLength = len(outputWav)/fs
-	timeArray.append(currLength)
-	thisStimName = 'scratchWAV/'+condition+'.wav'
-	fs, thisStim = wavfile.read(thisStimName)
-	thisStim = thisStim[0:samplesRepeat]
-	thisBlock = np.tile(thisStim, [blockReps,1])
-	outputWav = np.append(outputWav, thisBlock, axis=0)
-	currLength = len(outputWav)/fs
-	timeArray.append(currLength)
-	condArray.append('silence')
-	outputWav = np.append(outputWav, silence, axis=0)
-
-# write audio
-participantAudio = thisPartFolder + '/' + thisParticipant + '_experiment2.wav'	
-wavfile.write(participantAudio, fs, outputWav)
-
-totalLengthExp2 = (outputWav.shape[0]/fs)
-minutes = math.floor(totalLengthExp2/60)
-seconds = math.floor(totalLengthExp2 % 60)
-print('Length of experiment 2:', minutes, 'm', seconds, 's')
-
-participantLogName = thisPartFolder + '/' + thisParticipant + '_experiment2.csv'
 
 # write log
 logDict = {'Condition': condArray, 'Time': timeArray}
