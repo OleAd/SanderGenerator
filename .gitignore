@@ -1,1 +1,4 @@
 fluidsynth-2.2.2/
+default.sf2
+*.ini
+*.wav
