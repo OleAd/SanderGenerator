@@ -1,4 +1,4 @@
-name: VictorStimGenerator
+name: SanderGenerator
 channels:
   - conda-forge
   - defaults
@@ -185,7 +185,3 @@ dependencies:
   - zlib=1.2.11=h62dcd97_1010
   - pip:
     - numpy==1.21.2
-variables:
-  fluidsynth: "'C:\\Users\\olehe\\Documents\\GitHub\\VictorStimGenerator\\fluidsynth-2.2.2\\\
-    bin\\fluidsynth.exe'"
-prefix: C:\Users\olehe\Anaconda3\envs\VictorStimGenerator
