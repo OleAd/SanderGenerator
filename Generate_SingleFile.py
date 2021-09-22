@@ -7,41 +7,9 @@ Created on Tue Sep  7 12:00:38 2021
 This should generate audio for Sander's experiment
 Only one repeat, and at given BPM.
 
-Usage: Generate_SingleFile.py tempo1 tempo2 tempo3 etc
+Usage: Generate_SingleFile.py tempo1 tempo2 tempo3 tempoN
 Example for generating at 80, 120, 140, and 150:
 	Generate_SingleFile.py 80 120 140 150
-
-5- 'LR3 MH2'
-
-7- 'LR3 HH3'
-
-24- 'LR7 MH4'
-
-26- 'LR7 HH5'
-
-33- 'Son Clave MR1 MH4'
-
-35- 'Son Clave MR1 HH5'
-
-50- 'Mariato Clave MR5 MH2'
-
-52- 'Mariato Clave MR5 HH3'
-
-59- 'HR1 MH2'
-
-61- 'HR1 HH3'
-
-69- 'HR3 MH4'
-
-71- 'HR3 HH5'
-
-95- 'METRONOME 2 MH'
-
-94- 'METRONOME 1 MH'
-
-98- 'METRONOME 2 HH'
-
-97- 'METRONOME 1 HH'
 
 
 Requirements:
@@ -124,7 +92,6 @@ nArgs = len(sys.argv)
 
 # Check args, or revert to default
 if nArgs > 2:
-	#tempoList = int(float(sys.argv[1:]))
 	tempoList = [int(i) for i in list(sys.argv[1:])]
 else:
 	tempoList = 120
@@ -135,13 +102,6 @@ if max(tempoList) > 240 or min(tempoList) < 60:
 print('Generating stimuli at', str(tempoList), 'BPM.')
 
 
-'''
-thisTempoMed = 96
-thisTempoHigh = 120
-thisTempoLow = 70
-
-allTempi = [thisTempoLow, thisTempoMed, thisTempoHigh]
-'''
 # create folders
 
 if not os.path.isdir('stims'):
