@@ -130,7 +130,11 @@ listLevels = ['HR1HH3',
 			'Metro1MH',
 			'Metro1HH',
 			'Metro2MH',
-			'Metro2HH']
+			'Metro2HH',
+			'practiceMetroLH2',
+			'practiceHR1LH3',
+			'practiceRumbaClaveMR2LH2',
+			'practiceLR6LH2']
 
 
 
@@ -167,6 +171,11 @@ Metro1MH = mido.MidiFile('stimMidi/Metro1MH.mid')
 Metro1HH = mido.MidiFile('stimMidi/Metro1HH.mid')
 Metro2MH = mido.MidiFile('stimMidi/Metro2MH.mid')
 Metro2HH = mido.MidiFile('stimMidi/Metro2HH.mid')
+# the following were added November 16, 2021
+practiceMetroLH2 = mido.MidiFile('stimMidi/MetroLH2.mid')
+practiceHR1LH3 = mido.MidiFile('stimMidi/HR1LH3.mid')
+practiceRumbaClaveMR2LH2 = mido.MidiFile('stimMidi/RumbaClaveMR2LH2.mid')
+practiceLR6LH2 = mido.MidiFile('stimMidi/LR6LH2.mid')
 
 
 allMidi = [HR1HH3,
@@ -184,7 +193,11 @@ allMidi = [HR1HH3,
 			Metro1MH,
 			Metro1HH,
 			Metro2MH,
-			Metro2HH]
+			Metro2HH,
+			practiceMetroLH2,
+			practiceHR1LH3,
+			practiceRumbaClaveMR2LH2,
+			practiceLR6LH2]
 
 # run through, change tempo, make .wav-file
 for tempo in tempoList:
